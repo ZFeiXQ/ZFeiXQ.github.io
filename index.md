@@ -1,7 +1,7 @@
 ---
 layout: page
 title: ZFeiXQ的blog
-tagline: Full of miracles
+tagline: 
 ---
 {% include JB/setup %}
 
