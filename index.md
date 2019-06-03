@@ -1,7 +1,7 @@
 ---
 layout: page
 title: ZFeiXQ的blog
-tagline: 
+tagline: 不怕路远，哪怕一天直走一个点
 ---
 {% include JB/setup %}
 
