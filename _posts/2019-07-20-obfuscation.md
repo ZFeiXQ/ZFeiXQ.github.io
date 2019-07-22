@@ -1,36 +1,50 @@
 ---
 layout: post
-title: "30天自制操作系统之day6"
+title: "obfuscation"
 description: "os"
 category: 学习技术
 tags: [基础知识]
 ---
 {% include JB/setup %}
-##1.干了什么
+##obfuscation
 
-作者首先把之前的代码给重新分割了一下，对那些重用的戴拿进行了类似于封装的操作。当然makefile文件也很庞大，作者采用了一个通用（%.nas:%.c Makefile）规则进行了简写，从实现了代码的分割.同时也整理了头文件。
+前几天去听了几天的培训，晕晕乎乎，深刻的明白英语的重要性，，，故决定看看ppt
 
-然后讲解关于IDT的问题。
+第二天。。。
 
-##2.内容
+介绍混淆
 
-1.作者在前期已经完成了对IDT以及GDT的初始化操作，当然有些命令是不能用C语言来写的，还需要汇编指令，作者将其加入到汇编的相关文件中，作者讲解GDT和IDT的主要目的是为了完成对鼠标的移动，当然，事情没有那么简单！
+提出man-at-the-end（MATE）：个人理解可以成为白盒攻击，首先攻击者是人，他们拥有一定的智慧和能力，同时也可能拥有和正常用户一样的访问硬件护或者软件的权限，通过一定的技术手段（逆向，调试等）篡改或者调试硬件或软件本身，常见的保护方法有混淆，水印的 等！
 
-2.说到鼠标的移动和点击就设计到了中断的操作，故作者从简单的键盘操作引起的中断着手进行讲解，说道中断首先就要说中断的概念了？？
+英文定义：
+Man-At-The-End (MATE) attacks occur in any setting where an adversary has physical access to a
+device and compromises it by inspecting, reverse engineering, or tampering with its hardware or
+software.
 
-中断个人理解就是外设要cpu干活，cpu在一定条件下暂停自己所在的工作，去做相应的处理！
-这时候PIC就应运而生，它是什么??它是种可编程中断控制器，就是告诉CPU有个设备需要你！当然如果没有它的话处理类似的事件就是，每隔几分钟cpu就去看看有没有外设，这种方式也叫轮询。
+Remote Man-At-The-End (R-MATE) attacks occur in distributed systems where untrusted clients
+communicate with trusted servers, and malicious users get an advantage by compromising an untrusted device.
 
-3.关于pic
+代码转换：是对程序进行改变，为了让代码的行为或者语义相同，但是改变的代码在一定程度上更好！（更好是指faster,smaller,more security）
 
-它由两个,一个是主pic一个是从pic，主pic的IQR2与从pic相连，pic有一些引脚连着相关的设备，监控是谁发出的中断信号，同时需要注意pic中的寄存器，有一个就是IMR，它是中断屏蔽寄存器，有8位对应的是8路IRQ，如果我1就屏蔽该信号，中断处理就是IDT设定，当中断来临时执行的一个操作而已！
+A code transformation takes a program and changes it so that it behaves the same (its semantics
+doesn't change), but it is “better” in some way.
 
-##3.后面干了什么呢？？？？
+编译器可以让程序变得更快：
 
-其实作者只是实现了按键输出一个固定的语句，并没有别的变化，当然总开键盘也没设定，后期回讲
+1.过程内联用替换成一个函数调用！（内联函数是指在程序中频繁调用某个函数时会产生入栈操作实现栈内空间增大，加入inline，使得程序在运行时直接调用函数体内的代码，从而能提高效率）
 
-##4.相关的知识点：
+2.复制循环体，用循环展开来替换循环
 
-##5.参考
+##混淆的目标：
 
-30天自制操作系统前123页
+1，让人很难理解
+2.很难采用逆向工程等工具自动化分析
+隐藏程序中的许多资产
+
+##混淆的步骤：
+![](/assets/img/obfuscation/obufucation.png)
+
+##
+
+## 参考
+https://blog.csdn.net/zqixiao_09/article/details/50877383
