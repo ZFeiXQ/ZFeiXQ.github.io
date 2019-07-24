@@ -42,7 +42,7 @@ doesn't change), but it is “better” in some way.
 隐藏程序中的许多资产
 
 ##混淆的步骤：
-![](/assets/img/obfuscation/obufucation.png)
+![](/assets/img/obfuscation/obfuscation.png)
 
 ##
 
